@@ -7,8 +7,7 @@ export class Graph {
     this.coordinates = coordinates;
   }
 
-  createGraph() {
-    const coordinates = this.coordinates;
+  createGraph(coordinates) {
     const result = this.markOnGraph(coordinates)
       .map((v) => v.join(''))
       .join('\n');
@@ -55,6 +54,7 @@ export class Graph {
     const gridlines = this.createGridlines();
     let graph = gridlines;
 
+    console.log(coordinates);
     coordinates.forEach((coordinate) => {
       const x = coordinate[0] - 1;
       const y = this.maxHeight - coordinate[1];

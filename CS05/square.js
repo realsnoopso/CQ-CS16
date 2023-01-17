@@ -6,13 +6,11 @@ export class Square extends Triangle {
   }
 
   getSquareArea() {
-    this.getTriangleArea();
     const [a, b, c, d] = this.straightLengthes;
-
-    // const s = a + b + c + d;
-    // const A = Math.PI / 2;
-    // const n = 4;
-    // const w = 2 * Math.sqrt(s / n) * Math.cos(A / n);
-    // return w;
+    const setA = [a, b, c];
+    const setB = [a, c, d];
+    const A = this.getTriangleArea(setA);
+    const B = this.getTriangleArea(setB);
+    return A + B;
   }
 }
