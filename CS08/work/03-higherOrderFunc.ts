@@ -1,39 +1,17 @@
-// factor 인수
-const isFactor = (number: number, potentialFactor: number) => {
-  return number % potentialFactor == 0;
-};
-
-const isSquared = (number: number) => {
-  return Math.floor(Math.sqrt(number)) ** 2 == number;
-};
-
-// perfect: 완전수
-const isPerfect = (number: number) => {
-  return sum(factors(number)) - number == number;
-};
-
-// abundant: 과잉수
-const isAbundant = (number: number) => {
-  return sum(factors(number)) - number > number;
-};
-
-// deficient: 부족수
-const isDeficient = (number: number) => {
-  return sum(factors(number)) - number < number;
-};
-
-// prime: 소수
-const isPrime = (number: number) => {
-  const primeSet = new Set([1, number]);
-  return number > 1 && equalSet(factors(number), primeSet);
-};
-
-const equalSet = (aset: Set<number>, bset: Set<number>) => {
-  if (aset.size !== bset.size) return false;
-  for (const a of aset) if (!bset.has(a)) return false;
-  return true;
-};
-
+const isFactor = (number: number, potentialFactor: number): boolean =>
+  number % potentialFactor == 0;
+const isSquared = (number: number): boolean =>
+  Math.floor(Math.sqrt(number)) ** 2 == number;
+const isPerfect = (number: number): boolean =>
+  sum(factors(number)) - number == number;
+const isAbundant = (number: number): boolean =>
+  sum(factors(number)) - number > number;
+const isDeficient = (number: number): boolean =>
+  sum(factors(number)) - number < number;
+const isPrime = (number: number): boolean =>
+  number > 1 && equalSet(factors(number), new Set([1, number]));
+const equalSet = (aset: Set<number>, bset: Set<number>): boolean =>
+  aset.size === bset.size && [...aset].every((a) => bset.has(a));
 const factors = (number: number): Set<any> =>
   Array.from({ length: Math.floor(Math.sqrt(number)) }, (_, i) => i + 1)
     .filter((pod) => isFactor(number, pod))
@@ -42,30 +20,40 @@ const factors = (number: number): Set<any> =>
       factorSet.add(number / pod);
       return factorSet;
     }, new Set());
+const sum = (factors: Set<any>) =>
+  [...factors].reduce((total, factor) => total + factor);
 
-const sum = (factors: Set<any>) => {
-  return [...factors].reduce((total, factor) => {
-    return total + factor;
-  });
+type NumberClassifier = {
+  [Key in NumberClassifierKeys]: (number: number) => boolean;
 };
 
-export const numberClassifier: any = {
-  perfect: isPerfect,
-  abundant: isAbundant,
-  deficient: isDeficient,
-  prime: isPrime,
-  squared: isSquared,
+type NumberClassifierKeys =
+  | 'perfect'
+  | 'abundant'
+  | 'deficient'
+  | 'prime'
+  | 'squared';
+
+const numberClassifier = (): NumberClassifier => {
+  return {
+    perfect: isPerfect,
+    abundant: isAbundant,
+    deficient: isDeficient,
+    prime: isPrime,
+    squared: isSquared,
+  };
 };
 
-function verify(number: number) {
-  return Object.keys(numberClassifier)
-    .filter((classifier: any) => numberClassifier[classifier](number))
-    .reduce((acc, classifier) => {
-      return (acc += `${classifier} `);
-    }, '');
+const verify = (number: number) =>
+  Object.entries(numberClassifier())
+    .filter(([_, classifier]) => classifier(number))
+    .reduce((acc, [classifier]) => (acc += `${classifier} `), '');
+
+function print() {
+  new Array(99).fill(1).reduce((number, curr) => {
+    console.log(`${number}: ${verify(number)}`);
+    return number + curr;
+  }, 2);
 }
 
-new Array(99).fill(1).reduce((acc, curr) => {
-  console.log(`${acc}: ${verify(acc)}`);
-  return acc + curr;
-}, 2);
+print();
