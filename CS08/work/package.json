@@ -2,7 +2,7 @@
   "name": "work",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "03-higherOrderFunc.js",
   "scripts": {
     "test": "jest"
   },
