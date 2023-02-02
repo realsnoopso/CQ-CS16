@@ -17,7 +17,7 @@ B 집합 = [1,3]
 ```
 
 - [ ] CountSet 클래스 구현
-  - [ ] constructor 구현: 불변 타입, 초기화할 때 Object 또는 HashMap으로 값을 넘길 수 있음, 새로운 요소를 추가하거나 삭제하면 새로운 CountSet 리턴, SquadSet과 달리 요소가 중복해서 있을 수 있음, 요소별 Count 값이 있음
+  - [ ] 특징: 불변 타입, 초기화할 때 Object 또는 HashMap으로 값을 넘길 수 있음, 새로운 요소를 추가하거나 삭제하면 새로운 CountSet 리턴, SquadSet과 달리 요소가 중복해서 있을 수 있음, 요소별 Count 값이 있음
   - [ ] append(element): 새로운 요소를 추가, 새로운 CountSet 리턴
   - [ ] remove(element): 기존에 요소가 있으면 Count 줄이기, 0이 되면 제거한 CountSet을 리턴
   - [ ] countFor(element): 특정 요소에 대한 Count 값 리턴
@@ -103,4 +103,32 @@ L.filter = curry1(function* (f, iter) {
     yield last(acc);
   }
 });
+```
+
+## Generic Type
+
+사용하는 쪽에서 타입을 정의할 수 있다.
+(https://www.youtube.com/watch?v=pReXmUBjU3E&t=112s)
+
+```typescript
+function getSize<T>(arg: T[]): number {
+  return arr.length;
+}
+
+const arr = [1, 2, 3];
+getSize<number>(arr);
+```
+
+```typescript
+interface Mobile<T> {
+  name: string;
+  price: number;
+  option: T;
+}
+
+const m: Mobile<string> = {
+  name: 's20',
+  price: 900,
+  option: 'good',
+};
 ```
