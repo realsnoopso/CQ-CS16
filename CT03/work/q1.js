@@ -20,6 +20,7 @@ export function solution(board, moves) {
   return moves.reduce((answer, move) => {
     const i = board.findIndex((row) => row[move - 1] > 0);
     const target = board[i]?.[move - 1];
+
     if (target) {
       board[i][move - 1] = 0;
       stack.push(target);

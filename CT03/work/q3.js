@@ -4,18 +4,20 @@
 // using namespace std;
 
 export function solution(s) {
-  let answer = '';
-  let arr = [];
-  s.split(' ').reduce((_, word) => {
-    arr.push(
-      word.split('').reduce((result, char, i) => {
-        if (i % 2 === 0) return result + char.toUpperCase();
-        return result + char.toLowerCase();
-      }, '')
-    );
-  }, '');
-  answer = arr.join(' ');
-  return answer;
+  return s
+    .split(' ')
+    .map((word) =>
+      word
+        .split('')
+        .reduce(
+          (result, char, i) =>
+            i % 2 === 0
+              ? result + char.toUpperCase()
+              : result + char.toLowerCase(),
+          ''
+        )
+    )
+    .join(' ');
 }
 
 const print = (v) => console.log(solution(v));
