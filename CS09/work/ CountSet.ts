@@ -1,5 +1,3 @@
-import { computeAddress } from 'ethers/lib/utils';
-
 type Arr = number[][];
 type Element = number;
 
@@ -7,6 +5,7 @@ export class CountSet {
   #arr: Arr = [];
 
   append(element: Element) {
+    // TC: O(n)+O(1)
     let arr = this.#arr;
     let hasSameElement = false;
     arr.forEach((elementContainer, i) => {
@@ -25,7 +24,11 @@ export class CountSet {
   }
 
   remove(element: Element) {
+    // TC: O(n)+O(1)
     let arr = this.#arr;
+    if (arr.length === 0) {
+      return arr;
+    }
     arr.forEach((elementContainer, i) => {
       const [compare, count] = elementContainer;
       if (compare === element) {
@@ -39,9 +42,13 @@ export class CountSet {
   }
 
   countFor(element: Element) {
+    // TC: O(n)
     let arr = this.#arr;
+    if (arr.length === 0) {
+      return 0;
+    }
     let count = 0;
-    arr.forEach((elementContainer, i) => {
+    arr.forEach((elementContainer) => {
       const [a, b] = elementContainer;
       a === element ? (count = b) : 0;
     });
@@ -49,6 +56,7 @@ export class CountSet {
   }
 
   sum(other: Arr) {
+    // TC: O(n2)
     const arr = [...this.#arr];
     other.forEach((elementContainer: Element[]) => {
       const [element, count] = elementContainer;
@@ -66,7 +74,11 @@ export class CountSet {
   }
 
   complement(other: Arr) {
+    // TC: O(n2)
     const arr = [...this.#arr];
+    if (arr.length === 0) {
+      return arr;
+    }
     other.forEach((elementContainer: Element[]) => {
       const [element, count] = elementContainer;
       arr.forEach((elementContainer, i) => {
@@ -83,7 +95,12 @@ export class CountSet {
   }
 
   resultAll() {
-    return this.#arr.map((elementContainer) => {
+    // TC: O(n)
+    const arr = this.#arr;
+    if (arr.length === 0) {
+      return arr;
+    }
+    return arr.map((elementContainer) => {
       const [element, count] = elementContainer;
       return { element, count };
     });

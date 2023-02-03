@@ -17,3 +17,7 @@ console.log(
   ])
 );
 console.log(countSet.resultAll());
+
+const display = (func, props) => {
+  return func(props);
+};
