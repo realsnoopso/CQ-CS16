@@ -1,5 +1,6 @@
 import { SquadSet } from './SquadSet';
 import { CountSet } from './ CountSet';
+import { map } from './Func-utils';
 
 const squadSet = new SquadSet([2, 3, 4]);
 const countSet = new CountSet();
@@ -16,8 +17,16 @@ console.log(
     [2, 1],
   ])
 );
-console.log(countSet.resultAll());
 
-const display = (func, props) => {
-  return func(props);
-};
+const display = <T, A>(func: (props: T) => A, props: T) => func(props);
+
+const maptest = (props: number[]) =>
+  map<number>(
+    [1, 2, 3],
+    (element, _, props) => {
+      const [a] = props;
+      return (element += a);
+    },
+    props
+  );
+console.log('display', display<number[], number[]>(maptest, [1]));

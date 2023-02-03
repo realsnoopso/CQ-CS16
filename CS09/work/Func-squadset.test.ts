@@ -1,42 +1,51 @@
-import { SquadSet } from './SquadSet';
+import { SquadSet } from './Func-SquadSet';
 
-const squadSet = new SquadSet([2, 3, 4]);
+const squadSet = SquadSet([2, 3, 4]);
 
 describe('sum', () => {
   it('general', () => {
-    expect(squadSet.sum([1, 2, 3])).toStrictEqual([1, 2, 3, 4]);
+    const set = squadSet.getSet();
+    expect(squadSet.sum(set, [1, 2, 3])).toStrictEqual([2, 3, 4, 1]);
   });
   it('all same', () => {
-    expect(squadSet.sum([2, 3, 4])).toStrictEqual([2, 3, 4]);
+    const set = squadSet.getSet();
+    expect(squadSet.sum(set, [2, 3, 4])).toStrictEqual([2, 3, 4]);
   });
 });
 
 describe('complement', () => {
   it('general', () => {
-    expect(squadSet.complement([1, 2, 3])).toStrictEqual([1]);
+    const set = squadSet.getSet();
+    expect(squadSet.complement(set, [1, 2, 3])).toStrictEqual([1]);
   });
   it('all different', () => {
-    expect(squadSet.complement([5, 6, 7])).toStrictEqual([5, 6, 7]);
+    const set = squadSet.getSet();
+    expect(squadSet.complement(set, [5, 6, 7])).toStrictEqual([5, 6, 7]);
   });
   it('all same', () => {
-    expect(squadSet.complement([2, 3, 4])).toStrictEqual([]);
+    const set = squadSet.getSet();
+    expect(squadSet.complement(set, [2, 3, 4])).toStrictEqual([]);
   });
 });
 
 describe('intersect', () => {
   it('general', () => {
-    expect(squadSet.intersect([1, 2, 3])).toStrictEqual([2, 3]);
+    const set = squadSet.getSet();
+    expect(squadSet.intersect(set, [1, 2, 3])).toStrictEqual([2, 3]);
   });
   it('all same', () => {
-    expect(squadSet.intersect([2, 3, 4])).toStrictEqual([2, 3, 4]);
+    const set = squadSet.getSet();
+    expect(squadSet.intersect(set, [2, 3, 4])).toStrictEqual([2, 3, 4]);
   });
   it('all different', () => {
-    expect(squadSet.intersect([5, 6, 7])).toStrictEqual([]);
+    const set = squadSet.getSet();
+    expect(squadSet.intersect(set, [5, 6, 7])).toStrictEqual([]);
   });
 });
 
 describe('resultAll', () => {
   it('general', () => {
-    expect(squadSet.resultAll()).toStrictEqual([2, 3, 4]);
+    const set = squadSet.getSet();
+    expect(squadSet.resultAll(set)).toStrictEqual([2, 3, 4]);
   });
 });

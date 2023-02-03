@@ -37,3 +37,5 @@ export const reduce = <T>(
   }
   return result;
 };
+
+export const display = <T, A>(func: (props: T) => A, props: T) => func(props);

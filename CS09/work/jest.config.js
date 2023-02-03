@@ -8,6 +8,7 @@ module.exports = {
   // testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
   // testRegex: 'countset.test.ts',
   // testRegex: 'squadset.test.ts',
-  testRegex: 'Func-utils.test.ts',
+  // testRegex: 'Func-utils.test.ts',
+  testRegex: 'Func-squadset.test',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 };

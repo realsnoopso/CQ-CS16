@@ -1,8 +1,18 @@
 type Set = number[];
 
-export const squadSet = (newSet?: Set) => {
+import { map, filter } from './Func-utils';
+
+export const SquadSet = (newSet?: Set) => {
   const set: Set = newSet ? newSet : [];
-  return Object.freeze({});
+  const getSet = () => set;
+
+  return Object.freeze({
+    getSet,
+    sum,
+    complement,
+    intersect,
+    resultAll,
+  });
 };
 
 const sum = (set: Set, other: Set) => {
@@ -12,9 +22,15 @@ const sum = (set: Set, other: Set) => {
 };
 
 const complement = (set: Set, other: Set) => {
-  const diff: Set = [];
-  other.forEach((num: number) => {
-    if (!set.includes(num)) return diff.push(num);
-  });
-  return diff;
+  const isIncluded = (num: number, _: number, set: Set) => !set.includes(num);
+  return filter<number>(other, isIncluded, set);
+};
+
+const intersect = (set: Set, other: Set) => {
+  const isIncluded = (num: number, _: number, set: Set) => set.includes(num);
+  return filter<number>(other, isIncluded, set);
+};
+
+const resultAll = (set: Set) => {
+  return set;
 };

@@ -1,4 +1,4 @@
-import { map, filter, reduce } from './Func-utils';
+import { map, filter, reduce, display } from './Func-utils';
 
 describe('map', () => {
   it('sum', () => {
@@ -61,5 +61,23 @@ describe('reduce', () => {
     const testFilter = () =>
       reduce<number>([1, 2], 0, (a, b, i, _) => a + b + i, []);
     expect(testFilter()).toStrictEqual(4);
+  });
+});
+
+describe('display', () => {
+  it('general', () => {
+    type Props = [number[], number[]];
+    const testMap = (props: Props) =>
+      map<number>(
+        props[0],
+        (element, _, props) => {
+          const [a] = props;
+          return (element += a);
+        },
+        props[1]
+      );
+    const testDisplay = () =>
+      display<Props, number[]>(testMap, [[1, 2, 3], [1]]);
+    expect(testDisplay()).toStrictEqual([2, 3, 4]);
   });
 });
