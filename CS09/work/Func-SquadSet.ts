@@ -3,7 +3,7 @@ type Set = number[];
 import { map, filter } from './Func-utils';
 
 export const SquadSet = (newSet?: Set) => {
-  const set: Set = newSet ? newSet : [];
+  const set: Set = newSet ?? [];
   const getSet = () => set;
 
   return Object.freeze({
